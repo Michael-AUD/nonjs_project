@@ -1,0 +1,22 @@
+const express = require('express');
+const app = express();
+const dbConfig = require('./config/dbConfig'); // Your database configuration file
+const routes = require('./routes'); // Your routes configuration file
+
+// Connect to the database
+const { createConnection } = require('mysql2/promise');
+createConnection(dbConfig)
+  .then(() => console.log('Connected to the database'))
+  .catch((err) => console.error('Database connection error:', err));
+
+// Middleware to parse JSON requests
+app.use(express.json());
+
+// Define your routes
+app.use('/api', routes);
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
