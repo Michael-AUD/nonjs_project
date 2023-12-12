@@ -1,4 +1,4 @@
-async updateGrade(Mark, EnrolmentID) {
+  async updateGrade(Mark, EnrolmentID) {
     try {
       
       const [rows] = await this.pool.query('UPDATE enrolments SET Mark = ? WHERE EnrolmentID = ? AND CourseID IN (SELECT CourseID FROM courses WHERE TeacherID = ?)', [Mark, EnrolmentID, teacherID]);
